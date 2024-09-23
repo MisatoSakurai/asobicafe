@@ -16,6 +16,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            flex-direction: row; /* 横並び */
         }
 
         .easel {
@@ -92,7 +93,42 @@
             color: #3f4e4f; /* 文字色 */
             font-family: 'Pacifico', cursive; /* 手書き風フォント */
             transform: rotate(-10deg); /* 少し傾ける */
+            z-index: 10; /* カフェ名を前面に表示 */
         }
+
+        /* スマホ用スタイル */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* 縦方向に並べる */
+                justify-content: flex-start; /* 上に寄せる */
+                align-items: center; /* 中央揃え */
+            }
+
+            .cafe-name {
+                position: fixed; /* 固定位置 */
+                top: 10%; /* 上からの位置 */
+                left: 10%; /* 左からの位置 */
+                font-size: 3rem; /* フォントサイズを小さく */
+                color: #3f4e4f; /* 文字色 */
+                font-family: 'Pacifico', cursive; /* 手書き風フォント */
+                z-index: 10; /* カフェ名を前面に表示 */
+            }
+
+            .easel {
+                width: 90%; /* 幅を広げる */
+                height: auto; /* 高さを自動調整 */
+                bottom: 5%;
+                margin-top: 20%; /* 上にマージンを追加 */
+                position: fixed; /* 固定位置 */
+            }
+
+            .menu-board {
+                height: auto; /* 高さを自動調整 */
+                padding: 20px; /* パディングを調整 */
+            }
+        }
+
+
     </style>
 </head>
 <body>

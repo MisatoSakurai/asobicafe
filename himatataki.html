@@ -173,6 +173,8 @@
             position: absolute;
             top: 50%;
             left: 50%;
+            width: 80%;
+            max-width: 300px;
             transform: translate(-50%, -50%);
             text-align: center;
             font-size: 24px;
@@ -195,7 +197,7 @@
     <div id="result"></div>
     <div id="receipt"></div>
     <script>
-        const buttonCount = 20; // 暇の数
+        const buttonCount = 2; // 暇の数
         const buttons = []; // 暇の情報を格納する配列
         let startTime; // 開始時間
 
@@ -310,24 +312,19 @@
                 `;
                 resultDiv.style.display = 'block';
 
-                // タブを閉じるボタンのイベントリスナーを追加
                 const closeTabButton = document.getElementById('closeTabButton');
                 closeTabButton.addEventListener('click', function() {
-                    // resultDivを空にして非表示
                     resultDiv.style.display = 'none';
 
-                    // レシートを表示するための要素を取得
                     const receiptDiv = document.getElementById('receipt');
                     receiptDiv.innerHTML = ''; // クリア
 
-                    // メッセージを表示
                     const messageH1 = document.createElement('h2');
                     messageH1.style.color = "#333";
                     messageH1.style.textAlign = "center";
                     messageH1.innerText = "Have a nice day!";
                     receiptDiv.appendChild(messageH1);
 
-                    // 現在の価格を表示
                     const priceP = document.createElement('div');
                     const word = words[Math.floor(Math.random() * words.length)];
                     priceP.innerHTML = `
@@ -341,10 +338,8 @@
 
                     receiptDiv.appendChild(priceP);
 
-                    // レシートを表示
                     receiptDiv.style.display = 'block';
 
-                    // カウントダウン処理
                     let countdown = 5;
                     const countdownDiv = document.createElement('h2');
                     countdownDiv.style.color = "#333";
@@ -357,11 +352,18 @@
                         countdownDiv.innerText = `${countdown}`;
                         if (countdown <= 0) {
                             clearInterval(countdownInterval);
-                            window.close(); // カウントダウン終了後にウィンドウを閉じる
+                            if (window.opener) {
+                                window.close(); // Close the window if it was opened by the script
+                            } else {
+                                // Redirect to a specific page or show a message
+                                window.location.href = "index.html"; // Redirect to a goodbye page
+                                // Alternatively, you could display a message
+                                // alert("This window cannot be closed programmatically.");
+                            }
                         }
-                    }, 1000);
-                });
+                    }, 1000); // 1 second countdown
 
+                });
             }
         }
 
