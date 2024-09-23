@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asobi Cafe</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
+    <link rel="icon" type="image/png" href="images/coffe_icon.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #dfe7e3; /* 背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .easel {
+            position: fixed;
+            right: 5%;
+            width: 40%; /* イーゼルの幅 */
+            height: 90%; /* イーゼルの高さ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; /* 背景を透明に */
+        }
+
+        .menu-board {
+            background-color: #3f4e4f; /* 黒板風の色 */
+            color: #faefef; /* 文字色 */
+            font-family: 'Pacifico', cursive; /* 手書き風フォント */
+            width: 100%; /* ボードの幅 */
+            height: 60%; /* ボードの高さ */
+            padding: 40px 20px;
+            border: 10px solid #8B5A2B; /* 木製の枠の色 */
+            border-radius: 10px; /* 角を丸く */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 影をつける */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 5;
+        }
+
+        h1 {
+            margin: 0 0 20px 0;
+            font-size: 3rem; /* 見出しのサイズ */
+        }
+
+        .menu-item {
+            font-size: 1.5rem; /* メニュー項目のサイズ */
+            margin: 15px 0;
+            text-decoration: none; /* 下線を消す */
+            color: #fff; /* 文字色 */
+            transition: color 0.3s ease; /* ホバー時の色変更 */
+        }
+
+        .menu-item:hover {
+            color: #ffcc00; /* ホバー時の色 */
+        }
+
+        /* イーゼルの脚部分 */
+        .easel-leg {
+            position: absolute;
+            background-color: #8B5A2B; /* イーゼルの色 */
+            width: 10px; /* 脚の幅 */
+            height: 15%; /* 脚の高さ */
+            bottom: 0; /* 下に固定 */
+        }
+
+        /* 左の脚 */
+        .easel-leg.left {
+            left: 10%;
+            transform: rotate(10deg); /* 傾き */
+        }
+
+        /* 右の脚 */
+        .easel-leg.right {
+            right: 10%;
+            transform: rotate(-10deg); /* 傾き */
+        }
+
+        /* カフェの名前のスタイル */
+        .cafe-name {
+            position: fixed;
+            left: 5%;
+            top: 10%;
+            font-size: 4rem; /* サイズ */
+            color: #3f4e4f; /* 文字色 */
+            font-family: 'Pacifico', cursive; /* 手書き風フォント */
+            transform: rotate(-10deg); /* 少し傾ける */
+        }
+    </style>
+</head>
+<body>
+    <div class="cafe-name">Asobi Cafe</div> <!-- カフェの名前 -->
+    <div class="easel">
+        <div class="easel-leg left"></div>
+        <div class="easel-leg right"></div>
+        <div class="menu-board">
+            <h1>MENU</h1>
+            <a href="himatataki.html" class="menu-item">ひまつぶし</a>
+        </div>
+    </div>
+</body>
+</html>

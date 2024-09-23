@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暇つぶし</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap">
+    <style>
+
+        @font-face {
+            font-family: 'Nagomi';
+            src: url('path/to/nagomi-font.ttf'); /* フォントファイルへのパス */
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif; /* メインのフォント */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f3e8; /* カフェっぽい淡い背景色 */
+            color: #333; /* 落ち着いた文字色 */
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 高級カフェ風の見出し */
+        h1, h2 {
+            font-family: 'Nagomi', cursive; /* 手書き風のフォント */
+            font-weight: 500;
+            text-align: center;
+            color: #F0E68C; /* 黒板に映える色 */
+            margin: 20px 0;
+        }
+
+        h1 {
+            font-size: 3rem; /* 大きめのサイズで存在感を出す */
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+
+        /* サブテキストのスタイル */
+        p {
+            font-family: 'Poppins', sans-serif; /* 柔らかい印象のサンセリフフォント */
+            font-size: 1.2rem;
+            line-height: 1.6; /* 読みやすさを向上 */
+            text-align: left;
+            margin: 20px auto;
+            max-width: 800px; /* 中央に配置し幅を制限 */
+        }
+
+        /* ボタンのデザイン（カフェメニューのようなボタン） */
+        .cafe-button {
+            font-family: 'Poppins', sans-serif;
+            background-color: #6b4226; /* ダークブラウンの背景 */
+            color: #fff; /* 白い文字 */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .cafe-button:hover {
+            background-color: #8b5a3c; /* ホバー時に少し明るい色に変化 */
+        }
+        .button {
+            position: absolute;
+            cursor: pointer;
+            border: none;
+            width: fit-content;
+            background-color: rgba(0,0,0,0);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 2px;
+        }
+        .button:hover {
+            transform: scale(1.1);
+        }
+
+        /* 高級感のある金色ボタン */
+        .gold-button {
+            background: linear-gradient(45deg, #d4af37, #b8860b); /* 落ち着いた金色グラデーション */
+            border: 2px solid #c4a000; /* 金色の枠線 */
+            border-radius: 12px; /* 丸みのある角 */
+            padding: 12px 24px;
+            font-size: 20px;
+            color: #fff;
+            font-weight: bold;
+            /* font-family: 'Georgia', serif; 上品なフォント */
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* 高級感のある影 */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gold-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 70%);
+            transform: rotate(-45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .gold-button:hover::before {
+            opacity: 1;
+            top: 0;
+            left: 0;
+        }
+
+        .gold-button:hover {
+            transform: scale(1.05); /* 少し大きくして存在感を強調 */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5); /* 影を強調 */
+        }
+
+        /* 高級感を演出する値段 */
+        .price {
+            font-size: 3rem; /* 大きめのフォントサイズ */
+            color: #FFD700; /* 金色 */
+            font-weight: bold; /* 太字 */
+            /* font-family: 'Georgia', serif; クラシックなフォント */
+            text-align: center;
+            margin: 0;
+            display: inline-block;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* 深い影をつけて立体感を演出 */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        #receipt {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            background-color: #fff; /* 白い背景 */
+            color: #333; /* 落ち着いた文字色 */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 260px; /* レシートの幅 */
+            border: 1px dashed #333; /* 破線の枠線 */
+            font-family: 'Courier New', monospace; /* モノスペースフォント */
+        }
+
+
+        @keyframes burst {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        @keyframes squish {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.5, 0.1); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        #result {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 24px;
+            background-color: #2E4B2D; /* 緑っぽい黒板の背景色 */
+            color: #FFFFFF; /* 白い文字 */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border: 3px solid rgb(20, 32, 22); /* 黒板の枠線 */
+            font-family: 'Nagomi', cursive; /* 手書き風のフォント */
+        }
+        #result p {
+            text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <div id="receipt"></div>
+    <script>
+        const buttonCount = 20; // 暇の数
+        const buttons = []; // 暇の情報を格納する配列
+        let startTime; // 開始時間
+
+
+        const words = [
+            "Make every moment count.",
+            "Time is your friend.",
+            "Embrace the now.",
+            "Every second matters.",
+            "Create your own timeline.",
+            "Savor the little things.",
+            "Moments shape our dreams.",
+            "Time to shine!",
+            "Cherish today.",
+            "Let your time bloom."
+        ];
+        function getRandomColor() {
+            const colors = [
+                'hsl(30, 50%, 70%)', // クリーム
+                'hsl(25, 70%, 50%)', // 焦げ茶色
+                'hsl(40, 30%, 50%)', // オリーブグリーン
+                'hsl(15, 50%, 60%)', // サーモンピンク
+                'hsl(0, 0%, 85%)',    // 明るいベージュ
+                'hsl(35, 40%, 60%)',  // 明るいキャラメル色
+            ];
+            
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+
+
+        function isOverlapping(newButton, existingButtons) {
+            for (const button of existingButtons) {
+                if (
+                    newButton.left < button.left + button.width &&
+                    newButton.left + newButton.width > button.left &&
+                    newButton.top < button.top + button.height &&
+                    newButton.top + newButton.height > button.top
+                ) {
+                    return true; // 重なりがある
+                }
+            }
+            return false; // 重なりがない
+        }
+
+        function createButton() {
+            const size = Math.floor(Math.random() * 50) + 30; // 30px から 80px までのランダムなサイズ
+            let newButton;
+            let attempts = 0;
+            const maxAttempts = 100; // 最大試行回数
+
+            do {
+                newButton = {
+                    height: size,
+                    left: Math.random() * (window.innerWidth - size),
+                    top: Math.random() * (window.innerHeight - size)
+                };
+                attempts++;
+            } while (isOverlapping(newButton, buttons) && attempts < maxAttempts);
+
+            if (attempts === maxAttempts) {
+                console.log("ボタンを配置できる場所が見つかりませんでした。");
+                return; // ボタンを作成せずに終了
+            }
+
+            const himamoji = [
+                "暇",
+                "ひま",
+            ]
+
+            const button = document.createElement('button');
+            button.classList.add('button');
+            button.style.width = `${newButton.width}px`;
+            button.style.height = `${newButton.height}px`;
+            button.style.left = `${newButton.left}px`;
+            button.style.top = `${newButton.top}px`;
+            button.style.color = getRandomColor();
+            button.innerText = himamoji[Math.floor(Math.random() * himamoji.length)];
+            button.style.fontSize = `${size/2}px`;
+            
+            button.addEventListener('click', () => {
+                onClick(button);
+            });
+
+            document.body.appendChild(button);
+            buttons.push(newButton); // 配置情報を保存
+        }
+
+        function onClick(button) {
+            const effect = Math.random() < 0.5 ? 'burst' : 'squish';
+            button.style.animation = `${effect} 0.5s ease-out forwards`;
+            button.style.pointerEvents = 'none'; // クリックを無効化
+
+            // アニメーション終了後にボタンを削除
+            setTimeout(() => {
+                button.remove();
+                himagaNakunatta();
+            }, 500);
+        }
+
+        function himagaNakunatta() {
+            if (document.querySelectorAll('.button').length === 0) {
+                const endTime = new Date();
+                const timeTaken = (endTime - startTime) / 1000; // 秒単位に変換
+                const resultDiv = document.getElementById('result');
+
+                resultDiv.innerHTML = `
+                    <h2>暇がなくなった</h2>
+                    <p>頭に与えた休養: ${timeTaken.toFixed(2)}秒</p>
+                    <button id="closeTabButton" class="gold-button">「今この時間」を購入</button>
+                    <p>↑今だけ <span class="price">¥0</span><p>
+                `;
+                resultDiv.style.display = 'block';
+
+                // タブを閉じるボタンのイベントリスナーを追加
+                const closeTabButton = document.getElementById('closeTabButton');
+                closeTabButton.addEventListener('click', function() {
+                    // resultDivを空にして非表示
+                    resultDiv.style.display = 'none';
+
+                    // レシートを表示するための要素を取得
+                    const receiptDiv = document.getElementById('receipt');
+                    receiptDiv.innerHTML = ''; // クリア
+
+                    // メッセージを表示
+                    const messageH1 = document.createElement('h2');
+                    messageH1.style.color = "#333";
+                    messageH1.style.textAlign = "center";
+                    messageH1.innerText = "Have a nice day!";
+                    receiptDiv.appendChild(messageH1);
+
+                    // 現在の価格を表示
+                    const priceP = document.createElement('div');
+                    const word = words[Math.floor(Math.random() * words.length)];
+                    priceP.innerHTML = `
+                        <p>${word}</p> 
+                        <p>now&nbsp;&nbsp;¥0</p>
+                        <hr>
+                        <p>Total&nbsp;&nbsp;¥0</p>
+                    `;
+                    priceP.style.fontSize = "1.2rem"; // 価格のフォントサイズ
+                    priceP.style.textAlign = "left";
+
+                    receiptDiv.appendChild(priceP);
+
+                    // レシートを表示
+                    receiptDiv.style.display = 'block';
+
+                    // カウントダウン処理
+                    let countdown = 5;
+                    const countdownDiv = document.createElement('h2');
+                    countdownDiv.style.color = "#333";
+                    countdownDiv.style.textAlign = "center";
+                    countdownDiv.innerText = `${countdown}`;
+                    receiptDiv.appendChild(countdownDiv);
+
+                    const countdownInterval = setInterval(() => {
+                        countdown--;
+                        countdownDiv.innerText = `${countdown}`;
+                        if (countdown <= 0) {
+                            clearInterval(countdownInterval);
+                            window.close(); // カウントダウン終了後にウィンドウを閉じる
+                        }
+                    }, 1000);
+                });
+
+            }
+        }
+
+
+        function himaniNatta() {
+            startTime = new Date(); // ゲーム開始時間を記録
+            for (let i = 0; i < buttonCount; i++) {
+                createButton();
+            }
+        }
+
+        himaniNatta();
+    </script>
+</body>
+</html>
